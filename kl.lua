@@ -162,7 +162,7 @@ do
 				end
 				if arg == "fishingMaster" and arg3[arg].autoload == nil then
 					pcall(function()
-						if isfile("Hune Hub/FishingMaster_Autoload.txt") then
+						if isfile("LunarX Hub/FishingMaster_Autoload.txt") then
 							arg3[arg].autoload = tostring(readfile("Hune Hub/FishingMaster_Autoload.txt")):match("^%s*(.-)%s*$")
 						end
 					end)
@@ -297,8 +297,8 @@ do
 			Theme = "Giao Diện",
 			["Custom Rainbow Name"] = "Tên Rainbow Tùy Chỉnh",
 			["All Players Rainbow Name"] = "Tên Rainbow Cho Mọi Người Chơi",
-			["Local Overhead Names Only. Applies To All Players. Leave Blank For Hune Hub. Maximum 24 Characters."] = "Chỉ Đổi Tên Trên Đầu Ở Máy Bạn Cho Mọi Người Chơi. Để Trống Dùng Hune Hub. Tối Đa 24 Ký Tự.",
-			["Leave Blank To Use Hune Hub. Maximum 24 Characters."] = "Để Trống Để Dùng Hune Hub. Tối Đa 24 Ký Tự.",
+			["Local Overhead Names Only. Applies To All Players. Leave Blank For LunarX Hub. Maximum 24 Characters."] = "Chỉ Đổi Tên Trên Đầu Ở Máy Bạn Cho Mọi Người Chơi. Để Trống Dùng LunarX Hub. Tối Đa 24 Ký Tự.",
+			["Leave Blank To Use LunarX Hub. Maximum 24 Characters."] = "Để Trống Để Dùng LunarX Hub. Tối Đa 24 Ký Tự.",
 			["Profile Management System"] = "Quản Lý Cấu Hình",
 			["New Config Name"] = "Tên Cấu Hình Mới",
 			["e.g. AutoFarm"] = "Ví dụ: AutoFarm",
@@ -379,7 +379,7 @@ do
 			["Walk on water surface when Auto Sell (Walk) is active"] = "Đi trên mặt nước khi tự động bán bằng chế độ đi bộ",
 			["Walk on water surface when selling with Walk method"] = "Đi trên mặt nước khi bán cá bằng chế độ đi bộ",
 			["Movement & Safety"] = "Di Chuyển & An Toàn",
-			["Hune Hub Ready"] = "Hune Hub Sẵn Sàng",
+			["LunarX Hub Ready"] = "LunarX Hub Sẵn Sàng",
 			["Fishing Master is ready. Enable Auto Farm to begin."] = "Fishing Master Đã Sẵn Sàng. Bật Tự Động Câu Để Bắt Đầu.",
 			["Join Discord For More Update New!!!"] = "Vào Discord Để Nhận Thông Tin Cập Nhật Mới!",
 			["The complete fishing cycle has stopped."] = "Chu Kỳ Câu Cá Đã Dừng.",
@@ -1213,11 +1213,11 @@ do
 		local function fn32(arg)
 			local match = tostring(arg or ""):gsub("[%c]", " "):gsub("%s+", " "):match("^%s*(.-)%s*$") or ""
 			if match == "" then
-				return "Hune Hub"
+				return "LunarX Hub"
 			end
 			local v7 = fn31(match, 24)
 			if not v7 or #v7 == 0 then
-				return "Hune Hub"
+				return "LunarX Hub"
 			end
 			return table.concat(v7)
 		end
@@ -6437,7 +6437,7 @@ local function fn28()
 				end
 			end)
 		end
-		error("Hune Hub UI could not open: " .. tostring(result), 0)
+		error("LunarX Hub UI could not open: " .. tostring(result), 0)
 	end
 	return result
 end
@@ -6456,7 +6456,7 @@ local function fn29(arg, arg2, arg3)
 	local title = left and left:FindFirstChild("Title")
 	local title2 = title and title:FindFirstChild("Title")
 	if not (topbar and left and center and right and holder and title2 and title2:IsA("TextLabel")) then
-		warn("[Hune Hub Free] Header tag layout unavailable.")
+		warn("[LunarX Hub Free] Header tag layout unavailable.")
 		return
 	end
 	local tbl13 = {}
@@ -6465,7 +6465,7 @@ local function fn29(arg, arg2, arg3)
 	local flag27 = false
 	local textTruncate = title2.TextTruncate
 	local uiSizeConstraint = Instance.new("UISizeConstraint")
-	uiSizeConstraint.Name = "HuneFreeTitleLimit"
+	uiSizeConstraint.Name = "LunarXFreeTitleLimit"
 	uiSizeConstraint.Parent = title2
 	title2.TextTruncate = Enum.TextTruncate.AtEnd
 	local function fn30(arg4, arg5)
@@ -6530,7 +6530,7 @@ local function fn29(arg, arg2, arg3)
 		end)
 		flag27 = false
 		if not ok then
-			warn("[Hune Hub Free] Header layout: " .. tostring(result))
+			warn("[LunarX Hub Free] Header layout: " .. tostring(result))
 		end
 	end
 	local function fn33()
@@ -6661,10 +6661,10 @@ AboutTab:Paragraph({
 					if not setclipboard then
 						error("Clipboard is unavailable")
 					end
-					setclipboard("https://discord.gg/fHdf4yXpVE")
+					setclipboard("https://discord.gg/aXWW8hytgX")
 				end)
 				lib:Notify({
-					Title = text("Hune Hub"),
+					Title = text("LunarX Hub"),
 					Content = ok and "Discord invite copied!" or "Clipboard is not supported by this executor.",
 					Duration = 3,
 				})
@@ -6674,7 +6674,7 @@ AboutTab:Paragraph({
 })
 AboutTab:Paragraph({
 	Title = text("Owner"),
-	Desc = text("Discord: hune205"),
+	Desc = text("Discord: LunarX"),
 	Image = "crown",
 	ImageSize = 24,
 	Buttons = {
@@ -11871,7 +11871,7 @@ local function fn42()
 		textLabel.TextSize = 11
 		textLabel.TextColor3 = Color3.fromRGB(124, 246, 199)
 		textLabel.TextXAlignment = Enum.TextXAlignment.Left
-		textLabel.Text = "Hune Hub"
+		textLabel.Text = "LunarX Hub"
 		textLabel.Parent = frame
 		local frame2 = Instance.new("Frame")
 		frame2.Name = "BossPortrait"
@@ -13287,7 +13287,7 @@ local function fn46()
 			flag28 = true
 			local v15 = str4
 			if v15 == "" then
-				lib:Notify({ Title = text("Hune Hub"), Content = text("Please enter config name first!"), Duration = 4 })
+				lib:Notify({ Title = text("LunarX Hub"), Content = text("Please enter config name first!"), Duration = 4 })
 				flag28 = false
 				return
 			end
@@ -13296,10 +13296,10 @@ local function fn46()
 			end)
 			if ok then
 				str5 = v15
-				lib:Notify({ Title = text("Hune Hub"), Content = text("Saved: ") .. v15, Duration = 3 })
+				lib:Notify({ Title = text("LunarX Hub"), Content = text("Saved: ") .. v15, Duration = 3 })
 				fn52()
 			else
-				lib:Notify({ Title = text("Hune Hub"), Content = text("Save config failed: ") .. tostring(result), Duration = 5 })
+				lib:Notify({ Title = text("LunarX Hub"), Content = text("Save config failed: ") .. tostring(result), Duration = 5 })
 			end
 			flag28 = false
 		end,
@@ -13322,9 +13322,9 @@ local function fn46()
 				tbl.loadProfile("fishingMaster", str5, v5, configManager)
 			end)
 			if ok then
-				lib:Notify({ Title = text("Hune Hub"), Content = text("Loaded: ") .. str5, Duration = 3 })
+				lib:Notify({ Title = text("LunarX Hub"), Content = text("Loaded: ") .. str5, Duration = 3 })
 			else
-				lib:Notify({ Title = text("Hune Hub"), Content = text("Load config failed: ") .. tostring(result), Duration = 5 })
+				lib:Notify({ Title = text("LunarX Hub"), Content = text("Load config failed: ") .. tostring(result), Duration = 5 })
 			end
 		end,
 	})
@@ -13354,11 +13354,11 @@ local function fn46()
 					str7 = "None"
 					fn47("None")
 				end
-				lib:Notify({ Title = text("Hune Hub"), Content = text("Deleted: ") .. v15, Duration = 3 })
+				lib:Notify({ Title = text("LunarX Hub"), Content = text("Deleted: ") .. v15, Duration = 3 })
 				fn52()
 			else
 				lib:Notify({
-					Title = text("Hune Hub"),
+					Title = text("LunarX Hub"),
 					Content = text("Delete config failed: ") .. tostring(result),
 					Duration = 5,
 				})
@@ -13378,10 +13378,10 @@ local function fn46()
 		Callback = function()
 			str6 = str7 or "None"
 			if not fn47(str6) then
-				lib:Notify({ Title = text("Hune Hub"), Content = text("Save failed; retry later."), Duration = 5 })
+				lib:Notify({ Title = text("LunarX Hub"), Content = text("Save failed; retry later."), Duration = 5 })
 				return
 			end
-			lib:Notify({ Title = text("Hune Hub"), Content = text("Auto load set to: ") .. str6, Duration = 4 })
+			lib:Notify({ Title = text("LunarX Hub"), Content = text("Auto load set to: ") .. str6, Duration = 4 })
 		end,
 	})
 	task.spawn(function()
