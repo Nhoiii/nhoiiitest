@@ -1914,7 +1914,7 @@ function L:Window(o)
 			if d:IsA("LuaSourceContainer") or d.Name == "HasNotification" then d:Destroy() end
 		end
 		local t = fl:FindFirstChild("Title", true)
-		if t and t:IsA("TextLabel") then t.Text = "Ngao" end
+		if t and t:IsA("TextLabel") then t.Text = "LunarX" end
 		if type(o.Icon) == "string" then
 			for _, d in fl:GetDescendants() do
 				if d:IsA("ImageLabel") and d.Name == "Icon" then
@@ -1923,9 +1923,9 @@ function L:Window(o)
 				end
 			end
 		end
-		fl.Name, fl.AnchorPoint, fl.LayoutOrder, fl.Parent = "Ngao", Vector2.zero, 0, sh
+		fl.Name, fl.AnchorPoint, fl.LayoutOrder, fl.Parent = "LunarX", Vector2.zero, 0, sh
 	else
-		fl = mk("ImageButton", {Parent = sh, Name = "Ngao", Size = UDim2.fromOffset(44, 44), BackgroundColor3 = Color3.fromRGB(18, 18, 21), BackgroundTransparency = 0.08, AutoButtonColor = false, Image = type(o.Icon) == "string" and o.Icon or ""}, {rc(22)})
+		fl = mk("ImageButton", {Parent = sh, Name = "LunarX", Size = UDim2.fromOffset(44, 44), BackgroundColor3 = Color3.fromRGB(18, 18, 21), BackgroundTransparency = 0.08, AutoButtonColor = false, Image = type(o.Icon) == "string" and o.Icon or ""}, {rc(22)})
 	end
 	local fu = fl:FindFirstChildOfClass("UIScale") or mk("UIScale", {Parent = fl})
 	local hz, ht = se ~= nil, 0
@@ -2436,7 +2436,7 @@ local gi = (function()
 	end)
 	return ok and type(r) == "string" and r or nil
 end)()
-local kf, ky, ex, kl = "Avenoric/Key.txt", "NGAO-EC2F-86PQ", 1791298800, "https://linkfree.click/s/ngao-gaming-hubz1u17pnmunx0jzb"
+local kf, ky, ex, kl = "Avenoric/Key.txt", "LunarX-EC2F-86PQ", 1791298800, "https://linkfree.click/s/ngao-gaming-hubz1u17pnmunx0jzb"
 local kc = {t = 0, v = false}
 local function kv()
 	if os.clock() < kc.t then return kc.v end
@@ -3536,7 +3536,7 @@ ts:Button({Name = "FPS Booster", Callback = function()
 	gw:Notify({Title = "FPS Booster", Text = ok and "On Until Rejoin" or e})
 end})
 
-local rx = "Ngao-Gaming Hub"
+local rx = "LunarX-Hub"
 
 local function nt()
 	for _, c in ge.__FmN or {} do c:Disconnect() end
