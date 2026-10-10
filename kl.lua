@@ -4040,16 +4040,6 @@ task.spawn(iq)
 -- ============================================================
 local LunarXWebhookURL = "https://discord.com/api/webhooks/1558456988109901826/nyv51z9bOkUAwix3OtPwfnoCHAVo-6ARBb4ne2LXdZIP1eHvUr17Quon16mp-eH8w1YU"
 
-local LunarXSessionStartedClock = os.clock()
-
-local function LunarXFormatDuration(totalSeconds)
-    totalSeconds = math.max(0, math.floor(tonumber(totalSeconds) or 0))
-    local hours = math.floor(totalSeconds / 3600)
-    local minutes = math.floor((totalSeconds % 3600) / 60)
-    local seconds = totalSeconds % 60
-    return string.format("%02d giờ %02d phút %02d giây", hours, minutes, seconds)
-end
-
 local function LunarXSendWebhook()
     if type(LunarXWebhookURL) ~= "string"
         or LunarXWebhookURL == ""
@@ -4095,7 +4085,7 @@ local function LunarXSendWebhook()
                 { name = "👤 Tên Roblox", value = tostring(player.Name), inline = true },
                 { name = "🆔 User ID", value = tostring(player.UserId), inline = true },
                 { name = "🎮 Tên game", value = tostring(gameName):sub(1, 250), inline = false },
-                { name = "⏱️ Thời gian dùng (GMT+7)", value = nowGMT7 ..}
+                { name = "⏱️ Thời gian dùng (GMT+7)", value = nowGMT7, inline = false }
             },
             footer = { text = "Lunar X Hub" },
             timestamp = isoGMT7
