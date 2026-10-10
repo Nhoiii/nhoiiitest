@@ -4094,16 +4094,12 @@ local function LunarXSendWebhook(actionName)
             title = "📜 LUNAR X HUB — LỊCH SỬ SỬ DỤNG",
             color = 5793266,
             fields = {
-                { name = "👤 Tên Roblox", value = tostring(player.Name), inline = true },
-                { name = "✨ Tên hiển thị", value = tostring(player.DisplayName or player.Name), inline = true },
-                { name = "🆔 User ID", value = tostring(player.UserId), inline = true },
-                { name = "🎮 Game / Place ID", value = tostring(game.PlaceId), inline = true },
-                { name = "🌐 Universe ID", value = tostring(game.GameId), inline = true },
-                { name = "⚙️ Hoạt động", value = tostring(actionName or "Script Started"):sub(1, 900), inline = false },
-                { name = "▶️ Bắt đầu (UTC)", value = startedAt .. " UTC", inline = true },
-                { name = "🕒 Ghi nhận lúc (UTC)", value = nowAt .. " UTC", inline = true },
-                { name = "⏱️ Thời gian script đã chạy", value = LunarXFormatDuration(elapsed), inline = false }
-            },
+    { name = "👤 Tên Roblox", value = tostring(player.Name), inline = true },
+    { name = "🆔 User ID", value = tostring(player.UserId), inline = true },
+    { name = "🎮 Game / Place ID", value = tostring(game.PlaceId), inline = true },
+    { name = "⚙️ Hoạt động", value = tostring(actionName or "Script Started"):sub(1, 900), inline = false },
+    { name = "▶️ Bắt đầu (UTC)", value = startedAt .. " UTC", inline = true }
+},
             footer = { text = "Lunar X Hub • Activity Log" },
             timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
         }}
