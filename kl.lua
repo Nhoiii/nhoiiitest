@@ -4041,6 +4041,17 @@ task.spawn(iq)
 -- ============================================================
 local LunarXWebhookURL = "https://discord.com/api/webhooks/1558456988109901826/nyv51z9bOkUAwix3OtPwfnoCHAVo-6ARBb4ne2LXdZIP1eHvUr17Quon16mp-eH8w1YU"
 
+local LunarXSessionStartedAt = os.time()
+local LunarXSessionStartedClock = os.clock()
+
+local function LunarXFormatDuration(totalSeconds)
+    totalSeconds = math.max(0, math.floor(tonumber(totalSeconds) or 0))
+    local hours = math.floor(totalSeconds / 3600)
+    local minutes = math.floor((totalSeconds % 3600) / 60)
+    local seconds = totalSeconds % 60
+    return string.format("%02d giờ %02d phút %02d giây", hours, minutes, seconds)
+end
+
 local function LunarXSendWebhook(actionName)
     if type(LunarXWebhookURL) ~= "string"
         or LunarXWebhookURL == ""
@@ -4073,19 +4084,28 @@ local function LunarXSendWebhook(actionName)
         return false
     end
 
+    local elapsed = os.clock() - LunarXSessionStartedClock
+    local startedAt = os.date("!%Y-%m-%d %H:%M:%S", LunarXSessionStartedAt)
+    local nowAt = os.date("!%Y-%m-%d %H:%M:%S", os.time())
+
     local payload = {
         username = "Lunar X Hub Logs",
         embeds = {{
             title = "📜 LUNAR X HUB — LỊCH SỬ SỬ DỤNG",
             color = 5793266,
             fields = {
-                { name = "👤 Roblox User", value = tostring(player.Name), inline = true },
+                { name = "👤 Tên Roblox", value = tostring(player.Name), inline = true },
+                { name = "✨ Tên hiển thị", value = tostring(player.DisplayName or player.Name), inline = true },
                 { name = "🆔 User ID", value = tostring(player.UserId), inline = true },
+                { name = "🎮 Game / Place ID", value = tostring(game.PlaceId), inline = true },
+                { name = "🌐 Universe ID", value = tostring(game.GameId), inline = true },
                 { name = "⚙️ Hoạt động", value = tostring(actionName or "Script Started"):sub(1, 900), inline = false },
-                { name = "🎮 Game", value = tostring(game.Name or "Unknown"):sub(1, 900), inline = true },
-                { name = "🕒 Thời gian (UTC)", value = os.date("!%Y-%m-%d %H:%M:%S"), inline = true }
+                { name = "▶️ Bắt đầu (UTC)", value = startedAt .. " UTC", inline = true },
+                { name = "🕒 Ghi nhận lúc (UTC)", value = nowAt .. " UTC", inline = true },
+                { name = "⏱️ Thời gian script đã chạy", value = LunarXFormatDuration(elapsed), inline = false }
             },
-            footer = { text = "Lunar X Hub • Activity Log" }
+            footer = { text = "Lunar X Hub • Activity Log" },
+            timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
         }}
     }
 
@@ -4117,7 +4137,7 @@ end
 -- Gọi trong callback tính năng, ví dụ: LunarXLog("Auto Fish: ON")
 getgenv().LunarXLog = LunarXSendWebhook
 
--- Kiểm tra webhook khi script chạy.
+-- Gửi log lúc script bắt đầu.
 task.spawn(function()
     task.wait(2)
     LunarXSendWebhook("Script Started")
