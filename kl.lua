@@ -4084,7 +4084,6 @@ local function LunarXSendWebhook()
 
     -- Roblox/Lua os.date dùng giờ UTC ở định dạng !; cộng 7 giờ để hiển thị GMT+7.
     local nowGMT7 = os.date("!%Y-%m-%d %H:%M:%S", os.time() + 7 * 60 * 60)
-    local duration = LunarXFormatDuration(os.clock() - LunarXSessionStartedClock)
     local isoGMT7 = os.date("!%Y-%m-%dT%H:%M:%S", os.time() + 7 * 60 * 60) .. "+07:00"
 
     local payload = {
@@ -4096,7 +4095,7 @@ local function LunarXSendWebhook()
                 { name = "👤 Tên Roblox", value = tostring(player.Name), inline = true },
                 { name = "🆔 User ID", value = tostring(player.UserId), inline = true },
                 { name = "🎮 Tên game", value = tostring(gameName):sub(1, 250), inline = false },
-                { name = "⏱️ Thời gian dùng (GMT+7)", value = nowGMT7 .. "\\nThời lượng phiên: " .. duration, inline = false }
+                { name = "⏱️ Thời gian dùng (GMT+7)", value = nowGMT7 ..}
             },
             footer = { text = "Lunar X Hub" },
             timestamp = isoGMT7
