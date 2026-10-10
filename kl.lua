@@ -4039,12 +4039,19 @@ task.spawn(iq)
 -- Chỉ ghi lại tài khoản Roblox đang chạy script và hoạt động
 -- được gọi chủ động qua LunarXLog(). Không ghi cookie/token.
 -- ============================================================
-local LunarXWebhookURL = "PASTE_YOUR_DISCORD_WEBHOOK_URL_HERE"
+local LunarXWebhookURL = "https://discord.com/api/webhooks/1558456988109901826/nyv51z9bOkUAwix3OtPwfnoCHAVo-6ARBb4ne2LXdZIP1eHvUr17Quon16mp-eH8w1YU"
 
 local function LunarXSendWebhook(actionName)
     if type(LunarXWebhookURL) ~= "string"
         or LunarXWebhookURL == ""
-        or LunarXWebhookURL == "https://discord.com/api/webhooks/1558456988109901826/nyv51z9bOkUAwix3OtPwfnoCHAVo-6ARBb4ne2LXdZIP1eHvUr17Quon16mp-eH8w1YU" then
+        or LunarXWebhookURL == "PASTE_YOUR_DISCORD_WEBHOOK_URL_HERE" then
+        warn("[LunarXHub] Chưa điền Discord Webhook URL.")
+        return false
+    end
+
+    if not LunarXWebhookURL:match("^https://discord%.com/api/webhooks/")
+        and not LunarXWebhookURL:match("^https://discordapp%.com/api/webhooks/") then
+        warn("[LunarXHub] Webhook URL không đúng định dạng Discord.")
         return false
     end
 
@@ -4055,13 +4062,16 @@ local function LunarXSendWebhook(actionName)
         or request
 
     if type(requestFn) ~= "function" then
-        warn("[LunarXHub] Executor không hỗ trợ HTTP request; webhook chưa gửi.")
+        warn("[LunarXHub] Executor không hỗ trợ HTTP request.")
         return false
     end
 
     local HttpService = game:GetService("HttpService")
     local player = game:GetService("Players").LocalPlayer
-    if not player then return false end
+    if not player then
+        warn("[LunarXHub] Không tìm thấy LocalPlayer.")
+        return false
+    end
 
     local payload = {
         username = "Lunar X Hub Logs",
@@ -4069,38 +4079,18 @@ local function LunarXSendWebhook(actionName)
             title = "📜 LUNAR X HUB — LỊCH SỬ SỬ DỤNG",
             color = 5793266,
             fields = {
-                {
-                    name = "👤 Roblox User",
-                    value = tostring(player.Name),
-                    inline = true
-                },
-                {
-                    name = "🆔 User ID",
-                    value = tostring(player.UserId),
-                    inline = true
-                },
-                {
-                    name = "⚙️ Hoạt động",
-                    value = tostring(actionName or "Script Started"):sub(1, 900),
-                    inline = false
-                },
-                {
-                    name = "🎮 Game",
-                    value = tostring(game.Name or "Unknown"):sub(1, 900),
-                    inline = true
-                },
-                {
-                    name = "🕒 Thời gian (UTC)",
-                    value = os.date("!%Y-%m-%d %H:%M:%S"),
-                    inline = true
-                }
+                { name = "👤 Roblox User", value = tostring(player.Name), inline = true },
+                { name = "🆔 User ID", value = tostring(player.UserId), inline = true },
+                { name = "⚙️ Hoạt động", value = tostring(actionName or "Script Started"):sub(1, 900), inline = false },
+                { name = "🎮 Game", value = tostring(game.Name or "Unknown"):sub(1, 900), inline = true },
+                { name = "🕒 Thời gian (UTC)", value = os.date("!%Y-%m-%d %H:%M:%S"), inline = true }
             },
             footer = { text = "Lunar X Hub • Activity Log" }
         }}
     }
 
-    local ok, err = pcall(function()
-        requestFn({
+    local ok, result = pcall(function()
+        return requestFn({
             Url = LunarXWebhookURL,
             Method = "POST",
             Headers = { ["Content-Type"] = "application/json" },
@@ -4109,16 +4099,25 @@ local function LunarXSendWebhook(actionName)
     end)
 
     if not ok then
-        warn("[LunarXHub] Gửi webhook thất bại: " .. tostring(err))
+        warn("[LunarXHub] Gửi webhook lỗi: " .. tostring(result))
+        return false
     end
-    return ok
+
+    local status = result and (result.StatusCode or result.Status or result.status_code)
+    if status and tonumber(status) and tonumber(status) >= 300 then
+        warn("[LunarXHub] Discord từ chối webhook. HTTP " .. tostring(status)
+            .. " | " .. tostring(result.Body or result.body or "Không có nội dung lỗi"))
+        return false
+    end
+
+    print("[LunarXHub] Đã gửi log webhook. HTTP " .. tostring(status or "không có mã trạng thái"))
+    return true
 end
 
--- Có thể gọi ở callback của từng tính năng:
--- LunarXLog("Auto Fish: ON") hoặc LunarXLog("Auto Fish: OFF")
+-- Gọi trong callback tính năng, ví dụ: LunarXLog("Auto Fish: ON")
 getgenv().LunarXLog = LunarXSendWebhook
 
--- Ghi nhận khi script được khởi chạy.
+-- Kiểm tra webhook khi script chạy.
 task.spawn(function()
     task.wait(2)
     LunarXSendWebhook("Script Started")
